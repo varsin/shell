@@ -44,6 +44,14 @@ do
     esac
 done
 
+#Remove the options while leaving the remaining args
+shift "$((OPTIND - 1 ))"
+
+if [[ "${#}" -gt 0  ]]
+then
+    usage
+fi
+
 log 'Generating a password'
 
 PASSWORD=$(date +%s%N${RANDOM}${RANDOM} | sha256sum | head -c${LENGTH})
@@ -57,6 +65,6 @@ then
 fi    
 
 log 'Done!!'
-log 'Here is the paaword'
+log 'Here is the password'
 echo "${PASSWORD}"
 exit 0
